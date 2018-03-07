@@ -2,11 +2,11 @@
 import argparse
 import os
 
-from .database import Database
-from .langConfig import LangConfig
-from .parser import Parser
-from .stopwordFilter import StopwordFilter
-from .thesaurus import Thesaurus
+from database import Database
+from langConfig import LangConfig
+from parser import Parser
+from stopwordFilter import StopwordFilter
+from thesaurus import Thesaurus
 
 
 class Ln2sql:

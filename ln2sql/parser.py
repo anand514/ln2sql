@@ -5,8 +5,8 @@ import unicodedata
 import functools
 from threading import Thread
 
-from .parsingException import ParsingException
-from .query import *
+from parsingException import ParsingException
+from query import *
 
 
 class SelectParser(Thread):
@@ -674,7 +674,7 @@ class Parser:
         return "".join([c for c in nkfd_form if not unicodedata.combining(c)])
 
     def parse_sentence(self, sentence, stopwordsFilter=None):
-        sys.tracebacklimit = 0  # Remove traceback from Exception
+        # sys.tracebacklimit = 0  # Remove traceback from Exception
 
         number_of_table = 0
         number_of_select_column = 0
@@ -707,8 +707,8 @@ class Parser:
 
         for i in range(0, len(input_word_list)):
             for table_name in self.database_dico:
-                if (input_word_list[i] == table_name) or (
-                            input_word_list[i] in self.database_object.get_table_by_name(table_name).equivalences):
+                equivalences = self.database_object.get_table_by_name(table_name).equivalences
+                if (input_word_list[i] == table_name) or equivalences!=None and (input_word_list[i] in equivalences):
                     if number_of_table_temp == 0:
                         start_phrase = input_word_list[:i]
                     number_of_table_temp += 1
@@ -801,8 +801,9 @@ class Parser:
 
         for i in range(0, len(words)):
             for table_name in self.database_dico:
-                if (words[i] == table_name) or (
-                            words[i] in self.database_object.get_table_by_name(table_name).equivalences):
+                equivalences=self.database_object.get_table_by_name(table_name).equivalences
+                if (words[i] == table_name) or  equivalences!=None and (
+                            words[i] in equivalences):
                     if number_of_table == 0:
                         select_phrase = words[:i]
                     tables_of_from.append(table_name)

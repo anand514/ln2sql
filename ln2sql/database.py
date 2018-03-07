@@ -1,8 +1,8 @@
 import os
 import re
 
-from .constants import Color
-from .table import Table
+from constants import Color
+from table import Table
 
 
 class Database:
@@ -119,6 +119,7 @@ class Database:
             else:
                 column_name = re.search("`(\w+)`", line)
                 if column_name is not None:
+                    column_type = self.predict_type(line)
                     column_type = self.predict_type(line)
                     if self.thesaurus_object is not None:
                         equivalences = self.thesaurus_object.get_synonyms_of_a_word(column_name.group(1))

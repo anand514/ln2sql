@@ -3,8 +3,8 @@ import tkinter.filedialog
 from tkinter import *
 from tkinter.messagebox import *
 
-from .ln2sql import Ln2sql
-
+from ln2sql import Ln2sql
+import traceback;
 
 class App:
     def __init__(self, root):
@@ -101,6 +101,7 @@ class App:
             else:
                 showwarning('Warning', 'You must fill in all fields, please.')
         except Exception as e:
+            traceback.print_exc(limit=100, file=sys.stdout)
             showwarning('Error', e)
         return
 
